@@ -3,16 +3,21 @@
 
 import React, {useState} from "react";
 import {Card, Row, Col, Button, Modal, Spinner} from "react-bootstrap";
-import {API} from "aws-amplify";
+import {get} from "aws-amplify/api";
 
-function MainRequest(props) {
-  const [json, setJson] = useState(null);
+
+type MainRequestProps = {
+  token: string
+}
+
+function MainRequest(props: Readonly<MainRequestProps>) {
+  const [json, setJson] = useState<any | null>(null);
   const [show, setShow] = useState(false);
 
   async function handleSubmit() {
     setShow(true);
-    const response = await getData();
-    setJson(response);
+    const response = getData().response.then(response => response.body.json().then(json => json));
+    response.then(response => setJson(response));
   }
 
   function handleClose() {
@@ -21,16 +26,18 @@ function MainRequest(props) {
   }
 
   function getData() {
-    const apiName = "MyBlogPostAPI";
-    const path = "/Dev/blog";
-    const myInit = {
+    const apiName = "MyBlogPostApi";
+    const path = "/test";
+    const options = {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
         Authorization: props.token
       }
     };
-    return API.get(apiName, path, myInit);
+    return get({
+      apiName, path, options
+    });
   }
 
   return (

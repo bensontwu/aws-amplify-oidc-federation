@@ -21,19 +21,18 @@ Amplify.configure({
       loginWith: {
         oauth: {
           domain: "test-diode-2.auth.us-west-2.amazoncognito.com",
-          scopes: ["email", "openid", "test/base.read"],
+          scopes: ["email", "openid", "arn:aws:execute-api:us-west-2:713750136540:szfkqs4ijd/user"],
           redirectSignIn: ["http://localhost:3000"],
           redirectSignOut: ["http://localhost:3000"],
           responseType: "code"
         }
       },
-
     },
   },
   API: {
     REST: {
       MyBlogPostApi: {
-          endpoint: "https://5qdry4gupi.execute-api.us-west-2.amazonaws.com/dev"
+          endpoint: "https://szfkqs4ijd.execute-api.us-west-2.amazonaws.com/dev"
       }
     }
   }

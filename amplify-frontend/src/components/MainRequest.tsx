@@ -27,7 +27,7 @@ function MainRequest(props: Readonly<MainRequestProps>) {
 
   function getData() {
     const apiName = "MyBlogPostApi";
-    const path = "/test";
+    const path = "/";
     const options = {
       headers: {
         Accept: "application/json",
@@ -77,7 +77,10 @@ function MainRequest(props: Readonly<MainRequestProps>) {
         </Modal.Header>
         <Modal.Body>
           {json ? (
-            <p>Here is the response: {json.message}</p>
+            <>
+              <p>Here is the message: {json.message}</p>
+              <p>The user: {json.user}</p>
+            </>
           ) : (
             <h3 style={{textAlign: "center"}}>
               <Spinner animation="border" variant="primary" />

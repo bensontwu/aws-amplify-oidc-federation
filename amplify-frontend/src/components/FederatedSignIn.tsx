@@ -3,9 +3,13 @@
 
 import React from "react";
 import {Card, Row, Col, Button} from "react-bootstrap";
-import {Auth} from "aws-amplify";
+import { signInWithRedirect } from "aws-amplify/auth";
 
-function FederatedSignIn(props) {
+type FederatedSignInProps = {
+  federatedIdName: string;
+};
+
+function FederatedSignIn(props: Readonly<FederatedSignInProps>) {
   return (
     <Row>
       <Col sm={3}></Col>
@@ -25,9 +29,11 @@ function FederatedSignIn(props) {
                 <Button
                   block
                   variant="success"
-                  onClick={() =>
-                    Auth.federatedSignIn({provider: props.federatedIdName})
-                  }
+                  onClick={() => signInWithRedirect({
+                    provider: {
+                      "custom": props.federatedIdName
+                    }
+                  })}
                 >
                   Federated Sign In
                 </Button>
